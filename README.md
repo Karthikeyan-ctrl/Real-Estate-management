@@ -8,4 +8,6 @@ Flask
 Flask-MySQLdb
 MySQL Server
 
-Hope you like my project which was really simple one :) !
+Hope you like my project which was really a simple one :) !
+
+I was planned to add simple chatbot for this project i will update that soon!!
