@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Background image and styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000; /* Black background */
+            color: #f9f9f9; /* Light text color for contrast */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #ffcc00; /* Yellow color for the heading */
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5em; /* Larger font size */
+            text-shadow: 1px 1px 4px rgba(255, 204, 0, 0.7);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffcc00; /* Yellow color for subheading */
+            margin-top: 30px;
+            font-size: 1.8em; /* Increased size */
+        }
+
+        .transaction-list {
+            list-style-type: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: rgba(50, 50, 50, 0.9); /* Dark gray background for transaction list */
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.5); /* Yellow shadow */
+        }
+
+        .transaction-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .transaction-item:hover {
+            background-color: rgba(255, 204, 0, 0.2); /* Light yellow on hover */
+        }
+
+        .transaction-item button {
+            background-color: #ffcc00; /* Yellow button */
+            color: #000; /* Black text on button */
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            font-size: 1em; /* Font size for button */
+        }
+
+        .transaction-item button:hover {
+            background-color: #e6b800; /* Darker yellow on hover */
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(50, 50, 50, 0.9); /* Dark gray background for form */
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.5); /* Yellow shadow */
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffcc00; /* Yellow label color */
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 204, 0, 0.5); /* Light yellow border */
+            border-radius: 4px;
+            transition: border 0.3s ease;
+            background-color: #333; /* Dark input background */
+            color: #f9f9f9; /* Light text color in inputs */
+        }
+
+        form input[type="text"]:focus,
+        form input[type="number"]:focus,
+        form input[type="date"]:focus {
+            border: 1px solid #ffcc00; /* Yellow border on focus */
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffcc00; /* Yellow button */
+            color: #000; /* Black text on button */
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #e6b800; /* Darker yellow on hover */
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #ffcc00; /* Yellow link color */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #e6b800; /* Darker yellow on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Transactions</h1>
+
+    <h2>Add Transaction</h2>
+    <form action="/add/transaction" method="POST">
+        <label>
+            <input type="text" name="transaction_id" placeholder="Transaction ID" required>
+        </label>
+        <label>
+            <input type="number" name="buyer_id" placeholder="Buyer ID" required>
+        </label>
+        <label>
+            <input type="number" name="property_id" placeholder="Property ID" required>
+        </label>
+        <label>
+            <input type="date" name="transaction_date" required>
+        </label>
+        <label>
+            <input type="number" name="price" placeholder="Price" required>
+        </label>
+        <button type="submit">Add Transaction</button>
+    </form>
+
+    <ul class="transaction-list">
+        {% for transaction in transactions %}
+        <li class="transaction-item">
+            {{ transaction }}
+            <form action="{{ url_for('delete_transaction', transaction_id=transaction[0]) }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>

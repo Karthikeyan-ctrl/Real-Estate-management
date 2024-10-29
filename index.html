@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Management</title>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Black background */
+            color: #f9f9f9; /* Light text color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full viewport height */
+            overflow: hidden; /* Prevent scrolling */
+            position: relative; /* Needed for positioning child elements */
+        }
+
+        /* Interactive Background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 204, 0, 0.1), rgba(0, 0, 0, 0.8)); /* Fixed gradient syntax */
+            z-index: -1; /* Behind all content */
+            pointer-events: none; /* Prevent interference with mouse events */
+            transition: background 0.3s ease; /* Smooth transition */
+        }
+
+        /* TEAM WOLF Text */
+        .team-wolf {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Adjust for centering */
+            font-size: 15em; /* Set a large font size */
+            font-weight: bold; /* Bold font weight */
+            color: rgba(255, 255, 255, 0.1); /* White color with transparency */
+            z-index: -1; /* Behind all content */
+            pointer-events: none; /* Prevent interference with mouse events */
+            width: 100%; /* Full width */
+            text-align: center; /* Center the text */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        h1 {
+            color: #ffcc00; /* Yellow heading color */
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Larger font size */
+            position: relative; /* To stay above background */
+            z-index: 1; /* Above the background */
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column; /* Stack links vertically */
+            gap: 15px; /* Space between links */
+            position: relative; /* To stay above background */
+            z-index: 1; /* Above the background */
+        }
+
+        a {
+            background-color: #ffcc00; /* Yellow background */
+            color: #000; /* Black text */
+            text-decoration: none;
+            padding: 15px 30px; /* Padding for a larger button */
+            border-radius: 30px; /* Oval shape */
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Shadow for buttons */
+            width: 200px; /* Set width for uniformity */
+            text-align: center; /* Center align text */
+            position: relative; /* For the fluid effect */
+            overflow: hidden; /* Hide overflow for fluid effect */
+        }
+
+        a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%; /* Large width for fluid effect */
+            height: 300%; /* Large height for fluid effect */
+            background: rgba(255, 255, 255, 0.5); /* Light color for fluid effect */
+            border-radius: 50%; /* Circular shape for fluid effect */
+            transform: translate(-50%, -50%) scale(0); /* Start from the center, scaled down */
+            transition: transform 0.5s ease; /* Smooth transition */
+            z-index: 0; /* Behind the text */
+        }
+
+        a:hover::before {
+            transform: translate(-50%, -50%) scale(1); /* Scale up on hover */
+        }
+
+        a:hover {
+            color: #fff; /* Change text color on hover */
+        }
+
+        a span {
+            position: relative; /* To position text above the fluid effect */
+            z-index: 1; /* Above the background */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column; /* Stack links vertically on small screens */
+            }
+
+            a {
+                width: 100%; /* Full width on small screens */
+            }
+
+            h1 {
+                font-size: 2em; /* Slightly smaller font size on small screens */
+            }
+
+            .team-wolf {
+                font-size: 10em; /* Adjust font size for small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background" id="background"></div> <!-- Background layer -->
+    <div class="team-wolf">TEAM WOLF</div> <!-- TEAM WOLF text in background -->
+    <h1>Real Estate Management System</h1>
+    <nav>
+        <a href="/properties"><span>View Properties</span></a>
+        <a href="/users"><span>View Users</span></a>
+        <a href="/transactions"><span>View Transactions</span></a>
+    </nav>
+
+    <script>
+        const background = document.getElementById('background');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100; // Calculate X percentage
+            const y = (e.clientY / window.innerHeight) * 100; // Calculate Y percentage
+
+            // Set the background position based on mouse coordinates
+            background.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255, 204, 0, 0.1), rgba(0, 0, 0, 0.8))`; // Fixed syntax
+        });
+    </script>
+</body>
+</html>

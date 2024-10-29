@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Black background */
+            color: #f9f9f9; /* Light text color */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #ffcc00; /* Yellow heading color */
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Larger font size */
+        }
+
+        h2 {
+            color: #ffcc00; /* Yellow subheading color */
+            margin-top: 20px;
+            font-size: 2em; /* Subheading size */
+        }
+
+        /* Search Form Styles */
+        .search-form {
+            display: flex; /* Flex for row layout */
+            flex-wrap: wrap; /* Allow wrapping */
+            justify-content: center; /* Center align */
+            gap: 10px; /* Spacing between fields */
+            background-color: rgba(255, 204, 0, 0.1); /* Light yellow background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for forms */
+            width: 100%; /* Full width */
+            max-width: 800px; /* Max width for the form */
+        }
+
+        .search-form label {
+            display: flex; /* Flex for label and input alignment */
+            flex-direction: column; /* Stack label above input */
+        }
+
+        input, select {
+            width: 100%; /* Full width for inputs and select */
+            padding: 10px; /* Padding for inputs */
+            margin: 5px 0; /* Margin below each input */
+            border: 1px solid #ffcc00; /* Yellow border */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #222; /* Dark background for inputs */
+            color: #fff; /* White text for inputs */
+        }
+
+        button {
+            background-color: #ffcc00; /* Yellow button background */
+            color: #000; /* Black text */
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #e6b800; /* Darker yellow on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* Properties List Styles */
+        ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove padding */
+        }
+
+        li {
+            background-color: rgba(255, 204, 0, 0.1); /* Light yellow background */
+            margin: 10px 0; /* Spacing between items */
+            padding: 10px; /* Padding for items */
+            border-radius: 5px; /* Rounded corners */
+            display: flex; /* Flex for alignment */
+            justify-content: space-between; /* Space between text and button */
+            align-items: center; /* Center align items */
+            width: 100%; /* Full width for list items */
+            max-width: 800px; /* Max width for items */
+        }
+
+        /* Link Style */
+        a {
+            color: #ffcc00; /* Yellow link color */
+            text-decoration: none; /* Remove underline */
+            margin-top: 20px; /* Spacing from the forms */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Properties</h1>
+
+    <!-- Search Form -->
+    <h2>Search Properties</h2>
+    <form class="search-form" action="{{ url_for('search_properties') }}" method="POST">
+        <label for="min_price">Minimum Price:</label>
+        <input type="number" name="min_price" placeholder="Min Price" id="min_price">
+
+        <label for="max_price">Maximum Price:</label>
+        <input type="number" name="max_price" placeholder="Max Price" id="max_price">
+
+        <label for="property_type">Property Type:</label>
+        <input type="text" name="property_type" placeholder="Property Type" id="property_type">
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" placeholder="Location" id="location">
+
+        <button type="submit">Search</button>
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <!-- Properties List -->
+    <h2>Property List</h2>
+    <ul>
+        {% for property in properties %}
+        <li>
+            {{ property }}
+            <form action="{{ url_for('delete_property', property_id=property[0]) }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Add Property Form -->
+    <h2>Add Property</h2>
+    <form action="/add/property" method="POST">
+        <input type="text" name="property_id" placeholder="Property ID" required>
+        <input type="text" name="address" placeholder="Address" required>
+        <input type="number" name="price" placeholder="Price" required>
+        <input type="text" name="property_type" placeholder="Property Type" required>
+        <input type="number" name="owner_id" placeholder="Owner ID" required>
+        <select name="status" required>
+            <option value="available">Available</option>
+            <option value="sold">Sold</option>
+            <option value="rented">Rented</option>
+        </select>
+        <button type="submit">Add Property</button>
+    </form>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Black background */
+            color: #f9f9f9; /* Light text color */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #ffcc00; /* Yellow heading color */
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Larger font size */
+        }
+
+        h2 {
+            color: #ffcc00; /* Yellow subheading color */
+            margin-top: 20px;
+            font-size: 2em; /* Subheading size */
+        }
+
+        /* Add User Form Styles */
+        form {
+            display: flex;
+            flex-direction: column; /* Stack inputs vertically */
+            background-color: rgba(255, 204, 0, 0.1); /* Light yellow background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for forms */
+            width: 100%; /* Full width */
+            max-width: 800px; /* Max width for the form */
+            margin: 20px 0; /* Margin around the form */
+        }
+
+        input, select {
+            width: 100%; /* Full width for inputs and select */
+            padding: 10px; /* Padding for inputs */
+            margin: 5px 0; /* Margin below each input */
+            border: 1px solid #ffcc00; /* Yellow border */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #222; /* Dark background for inputs */
+            color: #fff; /* White text for inputs */
+        }
+
+        button {
+            background-color: #ffcc00; /* Yellow button background */
+            color: #000; /* Black text */
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #e6b800; /* Darker yellow on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* Users List Styles */
+        ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove padding */
+            margin: 20px 0; /* Margin around the list */
+            width: 100%; /* Full width */
+            max-width: 800px; /* Max width for the list */
+        }
+
+        li {
+            background-color: rgba(255, 204, 0, 0.1); /* Light yellow background */
+            margin: 10px 0; /* Spacing between items */
+            padding: 10px; /* Padding for items */
+            border-radius: 5px; /* Rounded corners */
+            display: flex; /* Flex for alignment */
+            justify-content: space-between; /* Space between text and button */
+            align-items: center; /* Center align items */
+            width: 100%; /* Full width for list items */
+        }
+
+        /* Link Style */
+        a {
+            color: #ffcc00; /* Yellow link color */
+            text-decoration: none; /* Remove underline */
+            margin-top: 20px; /* Spacing from the forms */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Users</h1>
+
+    <!-- Add User Form -->
+    <h2>Add User</h2>
+    <form action="/add/user" method="POST">
+        <input type="text" name="user_id" placeholder="User ID" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="phone" placeholder="Phone">
+        <select name="user_type" required>
+            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
+            <option value="agent">Agent</option>
+        </select>
+        <button type="submit">Add User</button>
+    </form>
+
+    <!-- Users List -->
+    <ul>
+        {% for user in users %}
+        <li>
+            {{ user }}
+            <form action="{{ url_for('delete_user', user_id=user[0]) }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
