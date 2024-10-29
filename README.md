@@ -4,9 +4,8 @@ This is a web application for managing real estate properties, users, and transa
 
 Prerequisites
 Python 3.x
-
 Flask
-
 Flask-MySQLdb
-
 MySQL Server
+
+Hope you like my project which was really simple one :) !
